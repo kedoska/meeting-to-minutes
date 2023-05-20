@@ -42,7 +42,7 @@ const createVideosRouter = ({ basePath }: VideosRouterOptions): Router => {
         id: file.filename,
       };
 
-      console.log(video);
+      console.log(`processing video ${video.name}`);
 
       const minutesRepository = new MinutesRepositoryImpl();
 
@@ -53,10 +53,9 @@ const createVideosRouter = ({ basePath }: VideosRouterOptions): Router => {
         new TextAnalysisService()
       );
 
-      await videoService.processMeeting(video);
-      const minute = await minutesRepository.get(video.id);
+      const minute = await videoService.processMeeting(video);
 
-      res.send({ minute });
+      res.send(minute);
     }
   );
 

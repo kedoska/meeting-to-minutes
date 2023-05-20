@@ -1,5 +1,5 @@
 export interface Minutes {
     id: string;
-    name: string;
+    path: string;
     content: string;
   }

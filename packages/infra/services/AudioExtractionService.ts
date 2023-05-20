@@ -10,13 +10,11 @@ export class AudioExtractionService {
     };
 
     return new Promise((resolve, reject) => {
-      console.dir(audio)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       FfmpegCommand(video.path)
         .output(audio.path)
         .on('end', function () {
-          console.log('conversion ended');
           resolve(audio);
         })
         .on('error', function (err: any) {
