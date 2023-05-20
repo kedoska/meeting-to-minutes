@@ -1,0 +1,63 @@
+{
+  "name": "presentation-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/presentation/api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/packages/presentation/api",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "packages/presentation/api/src/main.ts",
+        "tsConfig": "packages/presentation/api/tsconfig.app.json",
+        "assets": ["packages/presentation/api/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "presentation-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "presentation-api:build:development"
+        },
+        "production": {
+          "buildTarget": "presentation-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/presentation/api/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

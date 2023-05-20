@@ -1,4 +1,37 @@
 export default function Landing() {
+
+  const handleUploadVideo =  async () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'video/*';
+    input.onchange = async (event) => {
+
+      if (!event.target) {
+        return;
+      }
+
+      const file = (event.target as HTMLInputElement).files?.[0];
+
+      if (!file) {
+        return;
+      }
+
+      console.log(file);
+
+      const apiEndpoint = '/api/upload-video';
+      const formData = new FormData();
+      formData.append('video', file);
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
+    };
+    input.click();
+  };
+
   return (
     <div className="relative bg-white">
       <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
@@ -30,12 +63,12 @@ export default function Landing() {
               fugiat aliqua.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
-              <a
-                href="#"
+              <button
+                onClick={handleUploadVideo}
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Get started
-              </a>
+                Upload video
+              </button>
               <a
                 href="#"
                 className="text-sm font-semibold leading-6 text-gray-900"
