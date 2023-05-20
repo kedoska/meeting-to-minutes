@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@mtm/domain": ["packages/domain/src/index.ts"],
-      "@mtm/infra": ["packages/infra/src/index.ts"]
+      "@mtm/domain": ["packages/domain/index.ts"],
+      "@mtm/infra": ["packages/infra/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]
