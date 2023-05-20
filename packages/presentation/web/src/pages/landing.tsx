@@ -18,7 +18,7 @@ export default function Landing() {
 
       console.log(file);
 
-      const apiEndpoint = '/api/upload-video';
+      const apiEndpoint = '/api/v1/videos';
       const formData = new FormData();
       formData.append('video', file);
       const response = await fetch(apiEndpoint, {

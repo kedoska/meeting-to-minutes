@@ -1,5 +1,5 @@
-import { Video } from "../entities/Video";
+import { Video } from '../entities/Video';
 
 export interface VideoRepository {
-    save(video: Video): Promise<void>;
-  }
+  save(video: Video): Promise<void>;
+}

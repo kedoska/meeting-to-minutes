@@ -7,10 +7,10 @@ const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 const app = express();
 
 app.use(createVideosRouter({
-  basePath: 'api/v1/',
+  basePath: '/api/v1',
 }));
 
 
-app.listen(port, host, () => {
+app.listen(port, () => {
   console.log(`[ ready ] http://${host}:${port}`);
 });

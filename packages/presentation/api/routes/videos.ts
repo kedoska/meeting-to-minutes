@@ -1,3 +1,5 @@
+import { Video } from '@mtm/domain';
+import { MeetingProcessingService, AudioRepositoryImpl, MinutesRepositoryImpl, AudioExtractionService, AudioTranscriptionService, TextAnalysisService } from '@mtm/infra';
 import express, { Request, Response, Router } from 'express';
 import multer from 'multer';
 import { join } from 'path';
@@ -9,13 +11,35 @@ type VideosRouterOptions = {
 const createVideosRouter = ({ basePath }: VideosRouterOptions): Router => {
   const router = express.Router();
 
-  const upload = multer({ dest: 'uploads/' });
+  const upload = multer({ dest:  'uploads/' });
 
-  router.get(`${basePath}/videos`, upload.single('video'), (req: Request, res: Response) => {
+  router.post(`${basePath}/videos`, upload.single('video'), async (req: Request, res: Response) => {
     const file = req.file;
     const filePath = join(__dirname, file.path);
+    
+    const video: Video = {
+      name: file.originalname,
+      format: file.mimetype,
+      path: filePath,
+      id: file.filename
+    }
 
-    res.send('File uploaded successfully');
+    console.log(video);
+
+    const minutesRepository = new MinutesRepositoryImpl();
+
+    const videoService = new MeetingProcessingService(
+      new AudioRepositoryImpl(),
+      minutesRepository,
+      new AudioExtractionService(),
+      new AudioTranscriptionService(),
+      new TextAnalysisService()
+    );
+
+    await videoService.processMeeting(video);
+    const minute = await minutesRepository.get(video.id);
+
+    res.send({minute});
   });
 
   return router;
