@@ -1,0 +1,27 @@
+{
+  "name": "infra",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/infra/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/infra",
+        "tsConfig": "packages/infra/tsconfig.lib.json",
+        "packageJson": "packages/infra/package.json",
+        "main": "packages/infra/src/index.ts",
+        "assets": ["packages/infra/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/infra/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

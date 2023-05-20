@@ -13,9 +13,9 @@
         "outputPath": "dist/packages/presentation/api",
         "format": ["cjs"],
         "bundle": false,
-        "main": "packages/presentation/api/src/main.ts",
+        "main": "packages/presentation/api/server/main.ts",
         "tsConfig": "packages/presentation/api/tsconfig.app.json",
-        "assets": ["packages/presentation/api/src/assets"],
+        "assets": ["packages/presentation/api/assets"],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
