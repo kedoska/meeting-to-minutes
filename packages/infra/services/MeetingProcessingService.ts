@@ -1,11 +1,10 @@
-import { AudioRepository, MinutesRepository, Video } from '@mtm/domain';
+import { MinutesRepository, Video } from '@core/domain';
 import { AudioExtractionService } from './AudioExtractionService';
 import { AudioTranscriptionService } from './AudioTranscriptionService';
 import { TextAnalysisService } from './TextAnalysisService';
 
 export class MeetingProcessingService implements MeetingProcessingService {
   constructor(
-    private audioRepository: AudioRepository,
     private minutesRepository: MinutesRepository,
 
     private audioExtractionService: AudioExtractionService,
@@ -16,8 +15,6 @@ export class MeetingProcessingService implements MeetingProcessingService {
   async processMeeting(video: Video): Promise<void> {
 
     const audio = await this.audioExtractionService.extract(video);
-
-    await this.audioRepository.save(audio);
 
     const transcription = await this.audioTranscriptionService.transcribe(audio);
 

@@ -1,5 +1,11 @@
-import { Video } from '@mtm/domain';
-import { MeetingProcessingService, AudioRepositoryImpl, MinutesRepositoryImpl, AudioExtractionService, AudioTranscriptionService, TextAnalysisService } from '@mtm/infra';
+import { Video } from '@core/domain';
+import {
+  AudioExtractionService,
+  AudioTranscriptionService,
+  MeetingProcessingService,
+  MinutesRepositoryImpl,
+  TextAnalysisService,
+} from '@core/infra';
 import express, { Request, Response, Router } from 'express';
 import multer from 'multer';
 import { join } from 'path';
@@ -11,36 +17,48 @@ type VideosRouterOptions = {
 const createVideosRouter = ({ basePath }: VideosRouterOptions): Router => {
   const router = express.Router();
 
-  const upload = multer({ dest:  'uploads/' });
-
-  router.post(`${basePath}/videos`, upload.single('video'), async (req: Request, res: Response) => {
-    const file = req.file;
-    const filePath = join(__dirname, file.path);
-    
-    const video: Video = {
-      name: file.originalname,
-      format: file.mimetype,
-      path: filePath,
-      id: file.filename
-    }
-
-    console.log(video);
-
-    const minutesRepository = new MinutesRepositoryImpl();
-
-    const videoService = new MeetingProcessingService(
-      new AudioRepositoryImpl(),
-      minutesRepository,
-      new AudioExtractionService(),
-      new AudioTranscriptionService(),
-      new TextAnalysisService()
-    );
-
-    await videoService.processMeeting(video);
-    const minute = await minutesRepository.get(video.id);
-
-    res.send({minute});
+  const storage = multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+      const extension = file.originalname.split('.').pop();
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      cb(null, `${uniqueSuffix}.${extension}`);
+    },
   });
+  
+  const upload = multer({ storage });
+
+  router.post(
+    `${basePath}/videos`,
+    upload.single('video'),
+    async (req: Request, res: Response) => {
+      const file = req.file;
+      const filePath = join(file.path);
+
+      const video: Video = {
+        name: file.originalname,
+        format: file.mimetype,
+        path: filePath,
+        id: file.filename,
+      };
+
+      console.log(video);
+
+      const minutesRepository = new MinutesRepositoryImpl();
+
+      const videoService = new MeetingProcessingService(
+        minutesRepository,
+        new AudioExtractionService(),
+        new AudioTranscriptionService(),
+        new TextAnalysisService()
+      );
+
+      await videoService.processMeeting(video);
+      const minute = await minutesRepository.get(video.id);
+
+      res.send({ minute });
+    }
+  );
 
   return router;
 };

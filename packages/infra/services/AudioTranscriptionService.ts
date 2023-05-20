@@ -1,7 +1,7 @@
-import { Audio } from "@mtm/domain";
+import { Audio } from "@core/domain";
 
 export class AudioTranscriptionService {
   async transcribe(audio: Audio): Promise<string> {
-    // Implementación de la lógica para transcribir el audio a texto
+    throw new Error("Method not implemented.");
   }
 }

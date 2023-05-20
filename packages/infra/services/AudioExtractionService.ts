@@ -1,7 +1,28 @@
-import { Video, Audio } from "@mtm/domain";
+import { Video, Audio } from '@core/domain';
+import * as FfmpegCommand from 'fluent-ffmpeg';
 
 export class AudioExtractionService {
   async extract(video: Video): Promise<Audio> {
-    // Implementación de la lógica para extraer el audio del video
+    const audio: Audio = {
+      id: video.id,
+      name: video.name,
+      path: video.path.replace('.mp4', '.mp3'),
+    };
+
+    return new Promise((resolve, reject) => {
+      console.dir(audio)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      FfmpegCommand(video.path)
+        .output(audio.path)
+        .on('end', function () {
+          console.log('conversion ended');
+          resolve(audio);
+        })
+        .on('error', function (err: any) {
+          reject(err);
+        })
+        .run();
+    });
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "infra",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/infra/src",
+  "sourceRoot": "packages/infra",
   "projectType": "library",
   "targets": {
     "build": {
@@ -11,7 +11,7 @@
         "outputPath": "dist/packages/infra",
         "tsConfig": "packages/infra/tsconfig.lib.json",
         "packageJson": "packages/infra/package.json",
-        "main": "packages/infra/src/index.ts",
+        "main": "packages/infra/index.ts",
         "assets": ["packages/infra/*.md"]
       }
     },

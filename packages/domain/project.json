@@ -1,7 +1,7 @@
 {
   "name": "domain",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/domain/src",
+  "sourceRoot": "packages/domain",
   "projectType": "library",
   "targets": {
     "build": {
@@ -11,7 +11,7 @@
         "outputPath": "dist/packages/domain",
         "tsConfig": "packages/domain/tsconfig.lib.json",
         "packageJson": "packages/domain/package.json",
-        "main": "packages/domain/src/index.ts",
+        "main": "packages/domain/index.ts",
         "assets": ["packages/domain/*.md"]
       }
     },

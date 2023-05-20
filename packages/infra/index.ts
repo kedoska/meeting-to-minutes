@@ -1,4 +1,3 @@
-export * from './repositories/AudioRepositoryImpl'
 export * from './repositories/MinutesRepositoryImpl'
 export * from './repositories/VideoRepositoryImpl'
 

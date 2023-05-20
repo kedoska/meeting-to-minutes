@@ -1,4 +1,4 @@
-import { MinutesRepository, Minutes } from "@mtm/domain";
+import { Minutes, MinutesRepository } from "@core/domain";
 
 export class MinutesRepositoryImpl implements MinutesRepository {
   async save(minutes: Minutes): Promise<void> {

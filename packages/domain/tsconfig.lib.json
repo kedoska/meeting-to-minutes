@@ -6,6 +6,6 @@
     "declaration": true,
     "types": ["node"],
   },
-  "include": ["entities/**/*.ts", "repositories/**/*.ts", "services/**/*.ts"]
+  "include": ["**/*.ts"]
   
 }
