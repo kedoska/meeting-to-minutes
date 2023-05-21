@@ -1,6 +1,6 @@
 # Instant Meeting Minutes with AI
 
-Welcome to the repository for our :warning: **proof of concept**, "Instant Meeting Minutes with AI". This application allows users to upload Microsoft Teams video recordings and, with the help of artificial intelligence, generates comprehensive meeting minutes instantly and efficiently.
+Welcome to the repository for our :warning: **proof of concept**, "Instant Meeting Minutes with AI". This application allows users to upload Microsoft Teams video (or any other `.mp4` video) recordings and, with the help of artificial intelligence, generates comprehensive meeting minutes instantly and efficiently.
 
 ## Technology Stack
 The application utilizes a combination of technologies and paradigms:
