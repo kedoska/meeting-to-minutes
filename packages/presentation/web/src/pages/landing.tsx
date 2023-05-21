@@ -71,7 +71,10 @@ export default function Landing() {
                 <button
                   disabled={loading}
                   onClick={handleUploadVideo}
-                  className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 disabled:bg-indigo-400 transition ease-in-out duration-150 cursor-not-allowed"
+                  className={classNames(
+                    'inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 disabled:bg-indigo-400 transition ease-in-out duration-150',
+                    loading ? 'cursor-not-allowed' : ''
+                  )}
                 >
                   <svg
                     className={classNames(
